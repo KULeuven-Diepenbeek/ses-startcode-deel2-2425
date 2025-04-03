@@ -1,6 +1,7 @@
 plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.14'
+    id 'io.github.reyerizo.gradle.jcstress' version '0.8.15'
 }
 
 group = 'be.kuleuven.cs.ses'
