@@ -196,20 +196,6 @@ public class Assignment01_Records_Tests {
             assertThat(sw.second()).isEqualTo(pos1);
         }
 
-        @Test
-        public void test_potential_switches() {
-            BoardSize boardSize = new BoardSize(3, 4);
-            CandyCrushGame game = Util.createBoardFromString("""
-                    ..x.
-                    oox.
-                    xxox""");
-            var pos = new Position(1, 2, boardSize);
-            assertThat(game.getPotentialSwitchesOf(pos)).containsExactlyInAnyOrder(
-                    new Switch(pos, new Position(1, 1, boardSize)),
-                    new Switch(pos, new Position(2, 2, boardSize))
-            );
-
-        }
     }
 
     @Nested

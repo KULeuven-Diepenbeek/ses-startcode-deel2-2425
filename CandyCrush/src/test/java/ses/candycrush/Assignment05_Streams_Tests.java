@@ -3,10 +3,7 @@ package ses.candycrush;
 import org.junit.jupiter.api.Test;
 import ses.candycrush.board.BoardSize;
 import ses.candycrush.board.Position;
-import ses.candycrush.model.Candy;
-import ses.candycrush.model.CandyCrushGame;
-import ses.candycrush.model.Match;
-import ses.candycrush.model.Util;
+import ses.candycrush.model.*;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -191,7 +188,7 @@ public class Assignment05_Streams_Tests {
         var size = gameModel.getSize();
 
         assertThat(gameModel.longestMatchToRight(new Position(0, 4, size)))
-                .isEqualTo(new Match(List.of(new Position(0, 4, size))));
+                .isEqualTo(List.of(new Position(0, 4, size)));
     }
 
     @Test
@@ -201,7 +198,7 @@ public class Assignment05_Streams_Tests {
         var size = gameModel.getSize();
 
         assertThat(gameModel.longestMatchToRight(new Position(0, 3, size)))
-                .isEqualTo(new Match(List.of(new Position(0, 3, size), new Position(0, 4, size))));
+                .isEqualTo(List.of(new Position(0, 3, size), new Position(0, 4, size)));
     }
 
     @Test
@@ -211,12 +208,12 @@ public class Assignment05_Streams_Tests {
         var size = gameModel.getSize();
 
         assertThat(gameModel.longestMatchToRight(new Position(0, 0, size)))
-                .isEqualTo(new Match(List.of(
+                .isEqualTo(List.of(
                         new Position(0, 0, size),
                         new Position(0, 1, size),
                         new Position(0, 2, size),
                         new Position(0, 3, size),
-                        new Position(0, 4, size))));
+                        new Position(0, 4, size)));
     }
 
     @Test
@@ -231,7 +228,7 @@ public class Assignment05_Streams_Tests {
         var size = gameModel.getSize();
 
         assertThat(gameModel.longestMatchDown(new Position(4, 0, size)))
-                .isEqualTo(new Match(List.of(new Position(4, 0, size))));
+                .isEqualTo(List.of(new Position(4, 0, size)));
     }
 
     @Test
@@ -246,7 +243,7 @@ public class Assignment05_Streams_Tests {
         var size = gameModel.getSize();
 
         assertThat(gameModel.longestMatchDown(new Position(3, 0, size)))
-                .isEqualTo(new Match(List.of(new Position(3, 0, size), new Position(4, 0, size))));
+                .isEqualTo(List.of(new Position(3, 0, size), new Position(4, 0, size)));
     }
 
     @Test
@@ -261,12 +258,12 @@ public class Assignment05_Streams_Tests {
         var size = gameModel.getSize();
 
         assertThat(gameModel.longestMatchDown(new Position(0, 0, size)))
-                .isEqualTo(new Match(List.of(
+                .isEqualTo(List.of(
                         new Position(0, 0, size),
                         new Position(1, 0, size),
                         new Position(2, 0, size),
                         new Position(3, 0, size),
-                        new Position(4, 0, size))));
+                        new Position(4, 0, size)));
     }
 
     @Test
@@ -290,5 +287,21 @@ public class Assignment05_Streams_Tests {
                 new Match(List.of(redMatch1, redMatch2, redMatch3)),
                 new Match(List.of(greenMatch1, greenMatch2, greenMatch3, greenMatch4))
         );
+    }
+
+    @Test
+    public void test_potential_switches() {
+        BoardSize boardSize = new BoardSize(3, 4);
+        CandyCrushGame game = Util.createBoardFromString("""
+                    ..x.
+                    oox.
+                    xxox""");
+        var pos = new Position(2, 2, boardSize);
+        assertThat(game.getPotentialSwitchesOf(pos)).containsExactlyInAnyOrder(
+                new Switch(pos, new Position(1, 2, boardSize)),
+                new Switch(pos, new Position(2, 3, boardSize)),
+                new Switch(pos, new Position(2, 1, boardSize))
+        );
+
     }
 }
